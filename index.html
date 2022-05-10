@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+    <!--<![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Magazine &mdash; Free Fully Responsive HTML5 Bootstrap Template by FREEHTML5.co</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Free HTML5 Template by FREEHTML5" />
+        <meta
+            name="keywords"
+            content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive"
+        />
+
+        <!-- Facebook and Twitter integration -->
+        <meta property="og:title" content="" />
+        <meta property="og:image" content="" />
+        <meta property="og:url" content="" />
+        <meta property="og:site_name" content="" />
+        <meta property="og:description" content="" />
+        <meta name="twitter:title" content="" />
+        <meta name="twitter:image" content="" />
+        <meta name="twitter:url" content="" />
+        <meta name="twitter:card" content="" />
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="shortcut icon" href="favicon.ico" />
+        <!-- Google Fonts -->
+        <link
+            href="http://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic|Roboto:400,300,700"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <link rel="stylesheet" href="layui/css/layui.css" />
+        <link rel="stylesheet" href="/css/index.css" />
+        <!-- Animate -->
+        <link rel="stylesheet" href="css/animate.css" />
+        <!-- Icomoon -->
+        <link rel="stylesheet" href="css/icomoon.css" />
+        <!-- Bootstrap  -->
+        <link rel="stylesheet" href="css/bootstrap.css" />
+
+        <link rel="stylesheet" href="css/style.css" />
+
+        <!-- Modernizr JS -->
+        <script src="js/modernizr-2.6.2.min.js"></script>
+        <script src="./fonts/iconfont.js"></script>
+        <!-- FOR IE9 below -->
+        <!--[if lt IE 9]>
+            <script src="js/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            .icon {
+                width: 1em;
+                height: 1em;
+                vertical-align: -0.15em;
+                fill: currentColor;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="fh5co-dialog" class="juz">
+            <div class="login">
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">单行输入框</label>
+                        <div class="layui-input-block">
+                            <input
+                                type="text"
+                                name="title"
+                                lay-verify="title"
+                                autocomplete="off"
+                                placeholder="请输入标题"
+                                class="layui-input"
+                            />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">验证必填项</label>
+                        <div class="layui-input-block">
+                            <input
+                                type="text"
+                                name="username"
+                                lay-verify="required"
+                                lay-reqtext="用户名是必填项，岂能为空？"
+                                placeholder="请输入"
+                                autocomplete="off"
+                                class="layui-input"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">验证手机</label>
+                            <div class="layui-input-inline">
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    lay-verify="required|phone"
+                                    autocomplete="off"
+                                    class="layui-input"
+                                />
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">验证邮箱</label>
+                            <div class="layui-input-inline">
+                                <input
+                                    type="text"
+                                    name="email"
+                                    lay-verify="email"
+                                    autocomplete="off"
+                                    class="layui-input"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">多规则验证</label>
+                            <div class="layui-input-inline">
+                                <input
+                                    type="text"
+                                    name="number"
+                                    lay-verify="required|number"
+                                    autocomplete="off"
+                                    class="layui-input"
+                                />
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">验证日期</label>
+                            <div class="layui-input-inline">
+                                <input
+                                    type="text"
+                                    name="date"
+                                    id="date"
+                                    lay-verify="date"
+                                    placeholder="yyyy-MM-dd"
+                                    autocomplete="off"
+                                    class="layui-input"
+                                />
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">验证链接</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="url" lay-verify="url" autocomplete="off" class="layui-input" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">验证身份证</label>
+                        <div class="layui-input-block">
+                            <input
+                                type="text"
+                                name="identity"
+                                lay-verify="identity"
+                                placeholder=""
+                                autocomplete="off"
+                                class="layui-input"
+                            />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">自定义验证</label>
+                        <div class="layui-input-inline">
+                            <input
+                                type="password"
+                                name="password"
+                                lay-verify="pass"
+                                placeholder="请输入密码"
+                                autocomplete="off"
+                                class="layui-input"
+                            />
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">范围</label>
+                            <div class="layui-input-inline" style="width: 100px">
+                                <input
+                                    type="text"
+                                    name="price_min"
+                                    placeholder="￥"
+                                    autocomplete="off"
+                                    class="layui-input"
+                                />
+                            </div>
+                            <div class="layui-form-mid">-</div>
+                            <div class="layui-input-inline" style="width: 100px">
+                                <input
+                                    type="text"
+                                    name="price_max"
+                                    placeholder="￥"
+                                    autocomplete="off"
+                                    class="layui-input"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">单行选择框</label>
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="aihao">
+                                <option value=""></option>
+                                <option value="0">写作</option>
+                                <option value="1" selected="">阅读</option>
+                                <option value="2">游戏</option>
+                                <option value="3">音乐</option>
+                                <option value="4">旅行</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">分组选择框</label>
+                            <div class="layui-input-inline">
+                                <select name="quiz">
+                                    <option value="">请选择问题</option>
+                                    <optgroup label="城市记忆">
+                                        <option value="你工作的第一个城市">你工作的第一个城市</option>
+                                    </optgroup>
+                                    <optgroup label="学生时代">
+                                        <option value="你的工号">你的工号</option>
+                                        <option value="你最喜欢的老师">你最喜欢的老师</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">搜索选择框</label>
+                            <div class="layui-input-inline">
+                                <select name="modules" lay-verify="required" lay-search="">
+                                    <option value="">直接选择或搜索选择</option>
+                                    <option value="1">layer</option>
+                                    <option value="2">form</option>
+                                    <option value="3">layim</option>
+                                    <option value="4">element</option>
+                                    <option value="5">laytpl</option>
+                                    <option value="6">upload</option>
+                                    <option value="7">laydate</option>
+                                    <option value="8">laypage</option>
+                                    <option value="9">flow</option>
+                                    <option value="10">util</option>
+                                    <option value="11">code</option>
+                                    <option value="12">tree</option>
+                                    <option value="13">layedit</option>
+                                    <option value="14">nav</option>
+                                    <option value="15">tab</option>
+                                    <option value="16">table</option>
+                                    <option value="17">select</option>
+                                    <option value="18">checkbox</option>
+                                    <option value="19">switch</option>
+                                    <option value="20">radio</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">联动选择框</label>
+                        <div class="layui-input-inline">
+                            <select name="quiz1">
+                                <option value="">请选择省</option>
+                                <option value="浙江" selected="">浙江省</option>
+                                <option value="你的工号">江西省</option>
+                                <option value="你最喜欢的老师">福建省</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="quiz2">
+                                <option value="">请选择市</option>
+                                <option value="杭州">杭州</option>
+                                <option value="宁波" disabled="">宁波</option>
+                                <option value="温州">温州</option>
+                                <option value="温州">台州</option>
+                                <option value="温州">绍兴</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="quiz3">
+                                <option value="">请选择县/区</option>
+                                <option value="西湖区">西湖区</option>
+                                <option value="余杭区">余杭区</option>
+                                <option value="拱墅区">临安市</option>
+                            </select>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">此处只是演示联动排版，并未做联动交互</div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">复选框</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="like[write]" title="写作" />
+                            <input type="checkbox" name="like[read]" title="阅读" checked="" />
+                            <input type="checkbox" name="like[game]" title="游戏" />
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item" pane="">
+                        <label class="layui-form-label">原始复选框</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked="" />
+                            <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读" />
+                            <input type="checkbox" name="like1[game]" lay-skin="primary" title="游戏" disabled="" />
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">开关-默认关</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">开关-默认开</label>
+                        <div class="layui-input-block">
+                            <input
+                                type="checkbox"
+                                checked=""
+                                name="open"
+                                lay-skin="switch"
+                                lay-filter="switchTest"
+                                lay-text="ON|OFF"
+                            />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">单选框</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="sex" value="男" title="男" checked="" />
+                            <input type="radio" name="sex" value="女" title="女" />
+                            <input type="radio" name="sex" value="禁" title="禁用" disabled="" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">普通文本域</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                    <!--<div class="layui-form-item layui-form-text">
+                      <label class="layui-form-label">编辑器</label>
+                      <div class="layui-input-block">
+                        <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+                      </div>
+                    </div>-->
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="fh5co-offcanvas">
+            <a href="#" class="fh5co-close-offcanvas js-fh5co-close-offcanvas"
+                ><span><i class="icon-cross3"></i> <span>Close</span></span></a
+            >
+            <div class="fh5co-bio">
+                <figure>
+                    <img src="images/person1.jpg" alt="Free HTML5 Bootstrap Template" class="img-responsive" />
+                </figure>
+                <h3 class="heading">About Me</h3>
+                <h2>Emily Tran Le</h2>
+                <p>
+                    Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live
+                    the blind texts.
+                </p>
+                <ul class="fh5co-social">
+                    <li>
+                        <a href="#"><i class="icon-twitter"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="icon-facebook"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="icon-instagram"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="fh5co-menu">
+                <div class="fh5co-box">
+                    <h3 class="heading">Categories</h3>
+                    <ul>
+                        <li><a href="#">Travel</a></li>
+                        <li><a href="#">Style</a></li>
+                        <li><a href="#">Photography</a></li>
+                        <li><a href="#">Food &amp; Drinks</a></li>
+                        <li><a href="#">Culture</a></li>
+                    </ul>
+                </div>
+                <div class="fh5co-box">
+                    <h3 class="heading">Search</h3>
+                    <form action="#">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Type a keyword" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END #fh5co-offcanvas -->
+        <div class="header">
+            <a href="#" class="logo">down源码</a>
+            <ul class="layui-nav" style="background-color: #fff" lay-filter="">
+                <li class="layui-nav-item"><a href="">整站</a></li>
+                <li class="layui-nav-item layui-this"><a href="">企业</a></li>
+                <li class="layui-nav-item"><a href="">bootstrap</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">响应式</a>
+                </li>
+                <li class="layui-nav-item"><a href="">博客</a></li>
+                <li class="layui-nav-item"><a href="">外贸</a></li>
+                <li class="layui-nav-item"><a href="">相册</a></li>
+                <li class="layui-nav-item"><a href="">扁平化</a></li>
+                <li class="layui-nav-item"><a href="">后台</a></li>
+            </ul>
+            <span class="juz more" title="更多搜索">
+                <svg
+                    viewBox="64 64 896 896"
+                    focusable="false"
+                    data-icon="ellipsis"
+                    width="1em"
+                    height="1em"
+                    fill="currentColor"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M176 511a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0z"
+                    ></path>
+                </svg>
+            </span>
+            <span class="juz" style="font-size: 30px; margin: 0 20px; cursor: pointer">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-shoucang"></use>
+                </svg>
+            </span>
+            <div class="login-btn">
+                <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle juz"><i></i></a>
+                <button type="button" id="login" class="layui-btn layui-btn-primary">登录</button>
+                <button type="button" id="register" class="layui-btn layui-btn-primary">注册</button>
+            </div>
+        </div>
+        <!-- <header id="fh5co-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+                    <ul class="fh5co-social">
+                        <li>
+                            <a href="#"><i class="icon-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon-instagram"></i></a>
+                        </li>
+                    </ul>
+                    <div class="col-lg-12 col-md-12 text-center">
+                        <h1 id="fh5co-logo">
+                            <a href="index.html">Magazine <sup>TM</sup></a>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </header> -->
+        <div class="main">
+            <div class="search">
+                <input
+                    type="text"
+                    name="title"
+                    required
+                    lay-verify="required"
+                    placeholder="搜索词: 支付 模板 商城"
+                    autocomplete="off"
+                    class="layui-input"
+                />
+                <button class="layui-btn">搜索</button>
+            </div>
+            <div class="more-class animate__animated" style="display: none"></div>
+        </div>
+        <div class="copyrights">Collect from <a href="https://www.downdemo.com">企业网站模板</a></div>
+        <!-- END #fh5co-header -->
+        <div class="container-fluid">
+            <div class="row fh5co-post-entry center-block"></div>
+        </div>
+        <div id="laypage"></div>
+        <footer id="fh5co-footer">
+            <p>
+                <small
+                    >&copy; 2016. Magazine Free HTML5. All Rights Reserverd. <br />
+                    More Templates <a href="https://www.downdemo.com" target="_blank" title="网站模板">网站模板</a> -
+                    Collect from <a href="https://www.downdemo.com" title="网页模板" target="_blank">网页模板</a></small
+                >
+            </p>
+        </footer>
+        <script src="layui/layui.js"></script>
+        <script src="js/api.js"></script>
+        <!-- jQuery -->
+        <script src="js/jquery.min.js"></script>
+        <!-- jQuery Easing -->
+        <script src="js/jquery.easing.1.3.js"></script>
+        <!-- Bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Waypoints -->
+        <script src="js/jquery.waypoints.min.js"></script>
+        <!-- Main JS -->
+        <script src="js/main.js"></script>
+        <script>
+            layui.use("laypage", function () {
+                var laypage = layui.laypage;
+
+                //执行一个laypage实例
+                laypage.render({
+                    elem: "laypage", //注意，这里的 test1 是 ID，不用加 # 号
+                    count: 50, //数据总数，从服务端得到
+                });
+            });
+        </script>
+    </body>
+</html>
