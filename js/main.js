@@ -191,7 +191,7 @@
                 }
             });
             $(".fh5co-post-entry").eq(0).html(htmlStr);
-              // Animations
+            // Animations
             contentWayPoint();
         });
     }
@@ -206,6 +206,8 @@
         $(".more-class").toggle("fast");
     });
 
+   
+
     // Document on load.
 
     $(function () {
@@ -214,6 +216,5 @@
         burgerMenu();
         scrolledWindow();
         getMoreClassFn();
-      
     });
 })();

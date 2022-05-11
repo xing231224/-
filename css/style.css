@@ -14,9 +14,9 @@ html {
 
 body {
     font-family: "Roboto", arial, sans-serif;
-    font-size: 18px;
+    /* font-size: 18px; */
     font-weight: 300;
-    line-height: 1.8;
+    /* line-height: 1.8; */
     color: #222;
     background: #fff;
 }
@@ -234,18 +234,18 @@ p {
 }
 
 .form-control {
-    box-shadow: none;
-    background: transparent;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    height: 54px;
-    font-size: 18px;
-    font-weight: 300;
+    /* box-shadow: none; */
+    /* background: transparent; */
+    /* border: 2px solid rgba(0, 0, 0, 0.1); */
+    /* height: 54px; */
+    /* font-size: 18px; */
+    /* font-weight: 300; */
 }
 .form-control:active,
 .form-control:focus {
-    outline: none;
+    /* outline: none;
     box-shadow: none;
-    border-color: #f7c873;
+    border-color: #f7c873; */
 }
 
 #fh5co-header {

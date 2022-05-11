@@ -7,11 +7,27 @@
   right: 0;
   z-index: 99999;
 }
-#fh5co-dialog .login {
-  width: 70vw;
+#fh5co-dialog .dialog {
+  width: 25vw;
   min-height: 200px;
   margin: auto;
   background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
+}
+#fh5co-dialog .dialog .dialog-header {
+  background-color: #eeeeee;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+#fh5co-dialog .dialog .dialog-header .dialog-title {
+  font-weight: 600;
+}
+#fh5co-dialog .dialog .dialog-body {
+  padding: 20px;
 }
 .header {
   display: flex;

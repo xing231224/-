@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2022-05-09 20:32:32
- * @LastEditTime: 2022-05-10 14:46:53
+ * @LastEditTime: 2022-05-11 11:04:36
  * @LastEditors: xing 1981193009@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \demo\js\api.js
@@ -28,6 +28,17 @@ const service = function (obj) {
         });
     });
 };
+// 获取图片验证码
+const captchaApi = () => service({ url: "/api/captcha.jpg", type: "get" });
+// 登录
+const loginApi = (data) => service({ url: "/api/login", type: "post", data });
+// 退出
+const logoutApi = (data) => service({ url: "/api/logout", type: "post", data });
+// 注册
+const registerApi = (data) => service({ url: "/api/register", type: "post", data });
+// 发送邮件
+const sendMailApi = (data) => service({ url: "/api/sendMail", type: "get" });
+
 // 获取更多分类条件搜索
 const getMoreClass = () => service({ url: "/api/static/base", type: "get" });
 // 收藏
