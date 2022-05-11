@@ -1,23 +1,14 @@
 /*
- * @Author: your name
- * @Date: 2022-05-09 20:32:32
- * @LastEditTime: 2022-05-11 17:03:12
+ * @Author: xing 1981193009@qq.com
+ * @Date: 2022-05-11 12:42:48
  * @LastEditors: xing 1981193009@qq.com
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \demo\js\api.js
+ * @LastEditTime: 2022-05-11 15:28:32
+ * @FilePath: \newdemo - 副本\dist\api.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-
 const config = {
     url: "http://svip.aeert.com:18081/",
     more: ["classification", "color", "tag"],
-    classification: [],
-    color: [],
-    tag: [],
-    classParams: {},
-    laypage: {
-        curr: 1,
-        limit: 20,
-    },
 };
 
 const service = function (obj) {

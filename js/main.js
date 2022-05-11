@@ -1,3 +1,91 @@
+var contentWayPoint = function () {
+    var i = 0;
+    $(".animate-box").waypoint(
+        function (direction) {
+            if (direction === "down" && !$(this.element).hasClass("animated")) {
+                i++;
+
+                $(this.element).addClass("item-animate");
+                setTimeout(function () {
+                    $("body .animate-box.item-animate").each(function (k) {
+                        var el = $(this);
+                        setTimeout(
+                            function () {
+                                el.addClass("fadeInUp animated");
+                                el.removeClass("item-animate");
+                            },
+                            k * 200,
+                            "easeInOutExpo"
+                        );
+                    });
+                }, 100);
+            }
+        },
+        { offset: "85%" }
+    );
+};
+
+// 获取模板列表
+function getTemplateList(obj) {
+    let params = {
+        classificationId: null,
+        colorId: null,
+        current: 1,
+        name: "",
+        size: 20,
+        tagId: null,
+        ...obj,
+    };
+    layui.use("laypage", function () {
+        var laypage = layui.laypage;
+        templatePage(params).then((res) => {
+            let htmlStr = "";
+            let a = [],
+                b = [];
+            for (let i = 0; i <= 1000; i++) {
+                a.push(2 + 5 * i);
+                b.push(4 + 5 * i);
+            }
+            res.data.records.forEach((item, index) => {
+                htmlStr += `
+                <article class="col-lg-2 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
+                    <figure>
+                        <a href="single.html"><img src="${item.img}" alt="Image" class="img-responsive"></a>
+                    </figure>
+                    <span class="fh5co-meta"><a href="single.html">Food &amp; Drink</a></span>
+                    <h2 class="fh5co-article-title"><a href="single.html">${item.name}</a></h2>
+                    <span class="fh5co-meta fh5co-date">March 6th, 2016</span>
+                </article>
+                `;
+                if (a.includes(index)) {
+                    htmlStr += '<div class="clearfix visible-xs-block"></div>';
+                } else if (b.includes(index)) {
+                    htmlStr += `<div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>`;
+                }
+            });
+            $(".fh5co-post-entry").eq(0).html(htmlStr);
+            // Animations
+            contentWayPoint();
+            config.laypage = {
+                curr: res.data.current,
+                limit: res.data.size,
+                count: res.data.total,
+            };
+            //执行一个laypage实例
+            laypage.render({
+                elem: "laypage", //注意，这里的 test1 是 ID，不用加 # 号
+                layout: ["count", "prev", "page", "next", "limit", "refresh", "skip"],
+                ...config.laypage,
+                jump: (obj, first) => {
+                    if (!first) {
+                        getTemplateList({ current: obj.curr, size: obj.limit });
+                    }
+                },
+            });
+        });
+    });
+}
+
 (function () {
     "use strict";
 
@@ -104,46 +192,22 @@
         }
     };
 
-    var contentWayPoint = function () {
-        var i = 0;
-        $(".animate-box").waypoint(
-            function (direction) {
-                if (direction === "down" && !$(this.element).hasClass("animated")) {
-                    i++;
-
-                    $(this.element).addClass("item-animate");
-                    setTimeout(function () {
-                        $("body .animate-box.item-animate").each(function (k) {
-                            var el = $(this);
-                            setTimeout(
-                                function () {
-                                    el.addClass("fadeInUp animated");
-                                    el.removeClass("item-animate");
-                                },
-                                k * 200,
-                                "easeInOutExpo"
-                            );
-                        });
-                    }, 100);
-                }
-            },
-            { offset: "85%" }
-        );
-    };
-
     // 获取更多分类
     function getMoreClassFn() {
         getMoreClass().then((res) => {
             let htmlStr = "";
             config.more.forEach((key) => {
                 if (res[key]) {
+                    config[key] = [...res[key]];
                     htmlStr += `
 					<div class="flex">
 					<span class='class-title'>${key == "classification" ? "分类" : key == "color" ? "颜色" : "Tag"}&nbsp;: </span>
-					<div>
+					<div style='text-align: justify;'>
 						${res[key]
                             .map((item) => {
-                                return `<span class='class-span'>${item.name}</span>`;
+                                config.classificationId =
+                                    !config.classificationId && item.name == "整站" ? item.id : config.classificationId;
+                                return `<span class='class-span' data-key='${key}Id' data-id='${item.id}'>${item.name}</span>`;
                             })
                             .join(" ")}
 					</div>
@@ -152,49 +216,16 @@
                 }
             });
             $(".more-class").eq(0).html(htmlStr);
+            $(".class-span").each(function (index, item) {
+                item.onclick = function () {
+                    config.classParams[item.getAttribute("data-key")] = parseInt(item.getAttribute("data-id"));
+                    getTemplateList(config.classParams);
+                    console.log(config.classParams);
+                };
+            });
         });
     }
 
-    // 获取模板列表
-    function getTemplateList() {
-        let obj = {
-            classificationId: null,
-            colorId: null,
-            current: 1,
-            name: "",
-            size: 20,
-            tagId: null,
-        };
-        templatePage(obj).then((res) => {
-            let htmlStr = "";
-            let a = [],
-                b = [];
-            for (let i = 0; i <= 1000; i++) {
-                a.push(2 + 5 * i);
-                b.push(4 + 5 * i);
-            }
-            res.data.records.forEach((item, index) => {
-                htmlStr += `
-				<article class="col-lg-2 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-					<figure>
-						<a href="single.html"><img src="${item.img}" alt="Image" class="img-responsive"></a>
-					</figure>
-					<span class="fh5co-meta"><a href="single.html">Food &amp; Drink</a></span>
-					<h2 class="fh5co-article-title"><a href="single.html">${item.name}</a></h2>
-					<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-				</article>
-				`;
-                if (a.includes(index)) {
-                    htmlStr += '<div class="clearfix visible-xs-block"></div>';
-                } else if (b.includes(index)) {
-                    htmlStr += `<div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>`;
-                }
-            });
-            $(".fh5co-post-entry").eq(0).html(htmlStr);
-            // Animations
-            contentWayPoint();
-        });
-    }
     $(".more").click(function () {
         if ($(".more-class")[0].style.display == "none") {
             $(".more-class").addClass("animate__zoomIn");
@@ -205,8 +236,6 @@
         }
         $(".more-class").toggle("fast");
     });
-
-   
 
     // Document on load.
 

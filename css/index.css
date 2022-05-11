@@ -1,3 +1,6 @@
+.animate-box {
+  opacity: 0;
+}
 #fh5co-dialog {
   position: fixed;
   width: 100vw;
@@ -8,7 +11,6 @@
   z-index: 99999;
 }
 #fh5co-dialog .dialog {
-  width: 25vw;
   min-height: 200px;
   margin: auto;
   background-color: #fff;
@@ -36,7 +38,7 @@
   height: 64px;
 }
 .header .logo {
-  width: 120px;
+  width: 7%;
   display: block;
   display: flex;
   flex-direction: column;
@@ -65,10 +67,10 @@
   height: 100%;
 }
 .main {
-  width: 1300px;
-  margin: 20px auto;
+  width: 1470px;
+  margin: 20px auto 40px;
   background-color: #f0f2f5;
-  padding: 0 20px 0;
+  padding: 20px 0;
   overflow: hidden;
   box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
 }

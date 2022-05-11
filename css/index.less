@@ -1,6 +1,9 @@
 body {
     // background-color: #f0f2f5;
 }
+.animate-box {
+    opacity: 0;
+}
 #fh5co-dialog {
     position: fixed;
     width: 100vw;
@@ -10,7 +13,6 @@ body {
     right: 0;
     z-index: 99999;
     .dialog {
-        width: 25vw;
         min-height: 200px;
         margin: auto;
         background-color: #fff;
@@ -23,7 +25,7 @@ body {
             height: 40px;
             display: flex;
             justify-content: space-between;
-            .dialog-title{
+            .dialog-title {
                 font-weight: 600;
             }
         }
@@ -38,7 +40,7 @@ body {
     padding: 0 50px;
     height: 64px;
     .logo {
-        width: 120px;
+        width: 7%;
         display: block;
         display: flex;
         flex-direction: column;
@@ -60,7 +62,6 @@ body {
         .fh5co-nav-toggle {
             position: relative;
             top: -2px;
-
             display: inline-block;
             padding: 0;
             margin-right: 20px;
@@ -70,10 +71,10 @@ body {
 }
 
 .main {
-    width: 1300px;
-    margin: 20px auto;
+    width: 1470px;
+    margin: 20px auto 40px;
     background-color: #f0f2f5;
-    padding: 0 20px 0;
+    padding: 20px 0;
     overflow: hidden;
     box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
     .search {
