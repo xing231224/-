@@ -67,16 +67,16 @@
   height: 100%;
 }
 .main {
-  width: 1470px;
+  width: 85vw;
   margin: 20px auto 40px;
   background-color: #f0f2f5;
-  padding: 20px 0;
+  padding: 20px 40px;
   overflow: hidden;
   box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
 }
 .main .search {
   display: flex;
-  padding: 16px 40px;
+  padding: 16px 0;
 }
 .main .search .layui-input:hover {
   border-color: #3db389 !important;
