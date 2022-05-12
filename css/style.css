@@ -266,16 +266,25 @@ p {
     .main {
         width: 100%;
     }
+    .logo h1 {
+        font-size: 18px !important;
+    }
+    .username {
+        width: 30%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
     .input-group-addon {
         padding: 10px;
     }
     #fh5co-header {
-        padding-bottom: 5em !important;
+        padding-bottom: 4em !important;
     }
     .fh5co-post-entry article {
         position: static !important;
-        margin-left: 0  !important;
-        margin-right: 0  !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 }
 #fh5co-header .fh5co-nav-toggle {
@@ -299,7 +308,7 @@ p {
 #fh5co-header .fh5co-social {
     position: absolute !important;
     right: 3em !important;
-    top: 3.2em;
+    top: 2.2em;
     z-index: 99;
     -webkit-transition: 0.5s;
     -o-transition: 0.5s;
@@ -324,7 +333,7 @@ p {
         top: 5em;
         left: 50% !important;
         margin-left: -50px; */
-        top:.2em
+        top: 0.2em;
     }
 }
 @media screen and (max-width: 768px) {
@@ -434,7 +443,7 @@ p {
     padding-left: 3em;
     padding-right: 3em;
 }
-.fh5co-post-entry .article{
+.fh5co-post-entry .article {
     margin-left: 1em;
     margin-right: 1em;
     padding-left: 0;
@@ -443,6 +452,10 @@ p {
     left: 4.6%;
 }
 @media screen and (max-width: 1200px) {
+    #fh5co-dialog .dialog {
+        width: 700px;
+    }
+
     .fh5co-post-entry article {
         margin-bottom: 80px;
         padding-left: 15px;
@@ -454,6 +467,11 @@ p {
         margin-bottom: 80px;
         padding-left: 15px;
         padding-right: 15px;
+        margin-right: 3em !important;
+        left: 3.5% !important;
+    }
+    #fh5co-dialog .dialog {
+        width: 90vw;
     }
 }
 @media screen and (max-width: 768px) {
@@ -475,7 +493,6 @@ p {
     opacity: 0.4;
 }
 .fh5co-post-entry article figure {
-    
     margin-bottom: 30px;
 }
 .fh5co-post-entry article .figure {
@@ -600,7 +617,8 @@ figure figcaption {
     top: 0;
     left: 0;
     bottom: 0;
-    width: 700px;
+    width: 50%;
+    max-width: 700px;
     z-index: 99999;
     overflow-y: auto;
     opacity: 0;

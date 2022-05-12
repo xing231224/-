@@ -38,7 +38,6 @@
   height: 64px;
 }
 .header .logo {
-  width: 7%;
   display: block;
   display: flex;
   flex-direction: column;
@@ -47,7 +46,7 @@
   font-size: 25px;
   color: #000;
   position: relative;
-  top: -4px;
+  top: -30px;
 }
 .header .more {
   font-size: 18px;
@@ -67,7 +66,7 @@
   height: 100%;
 }
 .main {
-  width: 85vw;
+  width: 88vw;
   margin: 20px auto 40px;
   background-color: #f0f2f5;
   padding: 20px 40px;
@@ -85,7 +84,6 @@
   padding: 24px;
   background-color: #fff;
   margin-bottom: 20px;
-  border-radius: 24px;
   box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
 }
 .main .more-class .class-title {
@@ -104,6 +102,14 @@
 .main .more-class .class-span:hover {
   text-decoration: underline;
 }
+.collection {
+  font-size: 18px;
+  margin: 0 40px;
+  cursor: pointer;
+}
+.username {
+  padding: 0 10px !important;
+}
 #laypage {
   text-align: center;
 }
@@ -120,6 +126,7 @@
 }
 .layui-nav .layui-nav-item a {
   color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
 }
 .layui-nav .layui-nav-item a:hover,
 .layui-nav .layui-this a {

@@ -73,7 +73,7 @@ function getTemplateList(obj) {
                 htmlStr += `
                 <article class="col-lg-2 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box article">
                     <figure class='figure'>
-                        <a href="single.html"><img src="${item.img}" alt="Image" class="img-responsive"></a>
+                        <a href="single.html?id=${item.id}"><img src="${item.img}" alt="Image" class="img-responsive"></a>
                     </figure>
                     <span class="fh5co-meta"><a href="single.html">Food &amp; Drink</a></span>
                     <h2 class="fh5co-article-title"><a href="single.html">${item.name}</a></h2>
@@ -273,7 +273,19 @@ function getTemplateList(obj) {
             });
         });
     };
+    function laynav() {
+        if ($("body").width() > 1200) {
+            $("#layui-nav").css("display", "block");
+            $("#layui-nav").removeClass("layui-nav-side layui-nav-tree");
+        } else {
+            $("#layui-nav").css("display", "none");
+
+            $("#layui-nav").addClass("layui-nav-side layui-nav-tree");
+        }
+    }
+    window.addEventListener("resize",laynav);
     $(function () {
+        laynav()
         getTemplateList();
         getMoreClassFn();
     });

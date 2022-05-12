@@ -2,7 +2,7 @@
  * @Author: xing 1981193009@qq.com
  * @Date: 2022-05-11 14:24:45
  * @LastEditors: xing 1981193009@qq.com
- * @LastEditTime: 2022-05-12 15:05:43
+ * @LastEditTime: 2022-05-12 21:29:27
  * @FilePath: \newdemo - 副本\js\public.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -109,10 +109,19 @@ var mobileMenuOutsideClick = function () {
                 $(".js-fh5co-nav-toggle").removeClass("active");
             }
         }
+        if ($("#layui-nav").hasClass("animated fadeInLeft") && $("#layui-nav").css("display") == "block") {
+            $("#layui-nav").addClass("animated fadeOutLeft");
+            setTimeout(function () {
+                $("#layui-nav").css("display", "none");
+                $("#layui-nav").removeClass("animated fadeOutLeft fadeInLeft");
+            }, 1000);
+            // $(".js-fh5co-nav-toggle").removeClass("active");
+        }
     });
 
     $("body").on("click", ".js-fh5co-close-offcanvas", function (event) {
         $("#fh5co-offcanvas").addClass("animated fadeOutLeft");
+        $("#layui-nav").addClass("animated fadeOutLeft");
         setTimeout(function () {
             $("#fh5co-offcanvas").css("display", "none");
             $("#fh5co-offcanvas").removeClass("animated fadeOutLeft fadeInLeft");
@@ -121,13 +130,19 @@ var mobileMenuOutsideClick = function () {
 
         event.preventDefault();
     });
+
+    $(".js-lay-nav").click(function () {
+        $("#layui-nav").addClass("animated fadeInLeft");
+        setTimeout(function () {
+            $("#layui-nav").css("display", "block");
+        }, 100);
+    });
 };
 
 // Burger Menu
 var burgerMenu = function () {
     $("body").on("click", ".js-fh5co-nav-toggle", function (event) {
         var $this = $(this);
-
         $("#fh5co-offcanvas").css("display", "block");
         setTimeout(function () {
             $("#fh5co-offcanvas").addClass("animated fadeInLeft");
@@ -194,7 +209,8 @@ function isLogin() {
         config.loginInfo = JSON.parse(localStorage.getItem("user"));
         const info = JSON.parse(localStorage.getItem("user")).userInfo;
         $(".login-btn").hide();
-        console.log(info);
+        $(".collection").show();
+        $(".username").show().text(info.username);
         $("#fh5co-offcanvas").html(`
         <a href="#" class="fh5co-close-offcanvas js-fh5co-close-offcanvas"><span><i class="icon-cross3"></i> <span>Close</span></span></a>
             <div class="fh5co-bio" style="width: 100%">
@@ -214,6 +230,9 @@ function isLogin() {
         `);
     } else {
         config.isLogin = false;
+        $(".username").hide();
+        $(".login-btn").show();
+        $(".collection").hide();
     }
 }
 function loginOut() {
