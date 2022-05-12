@@ -431,10 +431,14 @@ p {
     text-align: center;
     float: left;
     margin-bottom: 110px;
-    /* padding-left: 3em;
-    padding-right: 3em; */
+    padding-left: 3em;
+    padding-right: 3em;
+}
+.fh5co-post-entry .article{
     margin-left: 1em;
     margin-right: 1em;
+    padding-left: 0;
+    padding-right: 0;
     position: relative;
     left: 4.6%;
 }
@@ -471,9 +475,12 @@ p {
     opacity: 0.4;
 }
 .fh5co-post-entry article figure {
+    
+    margin-bottom: 30px;
+}
+.fh5co-post-entry article .figure {
     overflow: hidden;
     height: 400px;
-    margin-bottom: 30px;
 }
 .fh5co-post-entry article figure .img-responsive {
     width: 100%;

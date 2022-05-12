@@ -1,30 +1,53 @@
-var contentWayPoint = function () {
-    var i = 0;
-    $(".animate-box").waypoint(
-        function (direction) {
-            if (direction === "down" && !$(this.element).hasClass("animated")) {
-                i++;
+function getpicSms() {
+    $(".captchaPic").attr("src", config.url + "/api/captcha.jpg");
+}
 
-                $(this.element).addClass("item-animate");
-                setTimeout(function () {
-                    $("body .animate-box.item-animate").each(function (k) {
-                        var el = $(this);
-                        setTimeout(
-                            function () {
-                                el.addClass("fadeInUp animated");
-                                el.removeClass("item-animate");
-                            },
-                            k * 200,
-                            "easeInOutExpo"
-                        );
-                    });
-                }, 100);
-            }
-        },
-        { offset: "85%" }
-    );
+let validate = function (dom, fields) {
+    $(dom).data("bootstrapValidator").resetField(fields);
+    const is = $(dom).data("bootstrapValidator").validateField(fields).isValidField(fields);
+    return is;
 };
 
+function getSms(e) {
+    if (!validate("#register-form", "email")) return;
+    if (!validate("#register-form", "captcha")) return;
+    let params = {};
+    $("#register-form")
+        .serializeArray()
+        .forEach((item) => {
+            if (item.value) {
+                if (item.name == "email") {
+                    params.mail = item.value;
+                } else if (item.name == "captcha") {
+                    params.captcha = item.value;
+                }
+            }
+        });
+    sendMailApi(params).then((res) => {
+        if (res.code === 0) {
+            $("#register-form").data("bootstrapValidator").resetField("email");
+            $("#register-form").data("bootstrapValidator").resetField("captcha");
+            const nextdom = $(e.target).next();
+            $(e.target).hide();
+            nextdom.show();
+            let s = 30;
+            let time = null;
+            time = setInterval(() => {
+                s--;
+                nextdom.text(s + "秒后重新获取");
+                if (s === 0) {
+                    $(e.target).show();
+                    nextdom.hide();
+                    clearInterval(time);
+                    nextdom.text("30s重新获取");
+                }
+            }, 1000);
+        } else {
+            layer.msg(res.msg, { icon: 5, anim: 6 });
+            getpicSms();
+        }
+    });
+}
 // 获取模板列表
 function getTemplateList(obj) {
     let params = {
@@ -48,8 +71,8 @@ function getTemplateList(obj) {
             }
             res.data.records.forEach((item, index) => {
                 htmlStr += `
-                <article class="col-lg-2 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-                    <figure>
+                <article class="col-lg-2 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box article">
+                    <figure class='figure'>
                         <a href="single.html"><img src="${item.img}" alt="Image" class="img-responsive"></a>
                     </figure>
                     <span class="fh5co-meta"><a href="single.html">Food &amp; Drink</a></span>
@@ -88,110 +111,6 @@ function getTemplateList(obj) {
 
 (function () {
     "use strict";
-
-    // iPad and iPod detection
-    var isiPad = function () {
-        return navigator.platform.indexOf("iPad") != -1;
-    };
-
-    var isiPhone = function () {
-        return navigator.platform.indexOf("<i></i>Phone") != -1 || navigator.platform.indexOf("iPod") != -1;
-    };
-
-    // Click outside of offcanvass
-    var mobileMenuOutsideClick = function () {
-        $(document).click(function (e) {
-            var container = $("#fh5co-offcanvas, .js-fh5co-close-offcanvas");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                if ($("#fh5co-offcanvas").hasClass("animated fadeInLeft")) {
-                    $("#fh5co-offcanvas").addClass("animated fadeOutLeft");
-                    setTimeout(function () {
-                        $("#fh5co-offcanvas").css("display", "none");
-                        $("#fh5co-offcanvas").removeClass("animated fadeOutLeft fadeInLeft");
-                    }, 1000);
-                    $(".js-fh5co-nav-toggle").removeClass("active");
-                }
-            }
-        });
-
-        $("body").on("click", ".js-fh5co-close-offcanvas", function (event) {
-            $("#fh5co-offcanvas").addClass("animated fadeOutLeft");
-            setTimeout(function () {
-                $("#fh5co-offcanvas").css("display", "none");
-                $("#fh5co-offcanvas").removeClass("animated fadeOutLeft fadeInLeft");
-            }, 1000);
-            $(".js-fh5co-nav-toggle").removeClass("active");
-
-            event.preventDefault();
-        });
-    };
-
-    // Burger Menu
-    var burgerMenu = function () {
-        $("body").on("click", ".js-fh5co-nav-toggle", function (event) {
-            var $this = $(this);
-
-            $("#fh5co-offcanvas").css("display", "block");
-            setTimeout(function () {
-                $("#fh5co-offcanvas").addClass("animated fadeInLeft");
-            }, 100);
-
-            // $('body').toggleClass('fh5co-overflow offcanvas-visible');
-            $this.toggleClass("active");
-            event.preventDefault();
-        });
-    };
-
-    var scrolledWindow = function () {
-        $(window).scroll(function () {
-            var header = $("#fh5co-header"),
-                scrlTop = $(this).scrollTop();
-
-            $("#fh5co-home .flexslider .fh5co-overlay").css({
-                opacity: 0.5 + scrlTop / 2000,
-            });
-
-            if ($("body").hasClass("offcanvas-visible")) {
-                $("body").removeClass("offcanvas-visible");
-                $(".js-fh5co-nav-toggle").removeClass("active");
-            }
-        });
-
-        $(window).resize(function () {
-            if ($("body").hasClass("offcanvas-visible")) {
-                $("body").removeClass("offcanvas-visible");
-                $(".js-fh5co-nav-toggle").removeClass("active");
-            }
-        });
-    };
-
-    // Page Nav
-    var clickMenu = function () {
-        var topVal = $(window).width() < 769 ? 0 : 58;
-
-        $(window).resize(function () {
-            topVal = $(window).width() < 769 ? 0 : 58;
-        });
-
-        if ($(this).attr("href") != "#") {
-            $('#fh5co-main-nav a:not([class="external"]), #fh5co-offcanvas a:not([class="external"])').click(function (
-                event
-            ) {
-                var section = $(this).data("nav-section");
-
-                if ($('div[data-section="' + section + '"]').length) {
-                    $("html, body").animate(
-                        {
-                            scrollTop: $('div[data-section="' + section + '"]').offset().top - topVal,
-                        },
-                        500
-                    );
-                }
-                event.preventDefault();
-            });
-        }
-    };
-
     // 获取更多分类
     function getMoreClassFn() {
         getMoreClass().then((res) => {
@@ -237,13 +156,125 @@ function getTemplateList(obj) {
         $(".more-class").toggle("fast");
     });
 
-    // Document on load.
+    function formValidator(form, cb) {
+        $(form)
+            .bootstrapValidator({
+                message: "This value is not valid",
+                feedbackIcons: {
+                    valid: "glyphicon glyphicon-ok",
+                    invalid: "glyphicon glyphicon-remove",
+                    validating: "glyphicon glyphicon-refresh",
+                },
+                fields: {
+                    captcha: {
+                        validators: {
+                            notEmpty: {
+                                message: "图片验证不为空！！！",
+                            },
+                            regexp: {
+                                regexp: /^.{5}$/,
+                                message: "请输入5位验证码！！！",
+                            },
+                        },
+                    },
+                    email: {
+                        validators: {
+                            regexp: {
+                                regexp: /[1-9]\d{7,10}@qq\.com/,
+                                message: "请输入qq邮箱！！！",
+                            },
+                            notEmpty: {
+                                message: "邮箱不能为空！！！",
+                            },
+                        },
+                    },
+                    password: {
+                        validators: {
+                            regexp: {
+                                regexp: /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{6,20}$/,
+                                message: "密码必须长度为6-20位包含数字和字母",
+                            },
+                            notEmpty: {
+                                message: "密码不为空！！！",
+                            },
+                        },
+                    },
+                    code: {
+                        validators: {
+                            notEmpty: {
+                                message: "邮箱验证不为空！！！",
+                            },
+                        },
+                    },
+                },
+            })
+            .on("success.form.bv", function (e) {
+                // Prevent form submission
+                e.preventDefault();
+                // Get the form instance
+                var $form = $(e.target);
+                // Get the BootstrapValidator instance
+                var bv = $form.data("bootstrapValidator");
+                let params = {};
+                $form.serializeArray().forEach((item) => {
+                    if (item.name == "email") {
+                        params.username = item.value;
+                    } else {
+                        params[item.name] = item.value;
+                    }
+                });
+                cb && cb(params, $form);
+            });
+    }
 
+    // Document on load.
+    window.onload = function () {
+        layui.use("element", function () {
+            var element = layui.element;
+            element.on("nav(headerNav)", function (data) {
+                setTimeout(() => {
+                    const classificationId = config.classification.filter((item) => item.name == data[0].innerText)[0]
+                        .id;
+                    config.classParams.classificationId = classificationId;
+                    getTemplateList({ classificationId });
+                });
+            });
+            //…
+        });
+
+        // 注册验证
+        formValidator("#register-form", function (params, $form) {
+            delete params.captcha;
+            registerApi(params).then((res) => {
+                if (res.code == 500) {
+                    layer.msg(res.msg, { icon: 5, anim: 6 });
+                } else {
+                    dialoghide();
+                    localStorage.setItem("user", JSON.stringify(res));
+                    isLogin();
+                }
+                $form.data("bootstrapValidator").resetForm();
+                $form[0].reset();
+            });
+        });
+        // 登录验证
+        formValidator("#login-form", function (params, $form) {
+            loginApi(params).then((res) => {
+                if (res.code == 500) {
+                    layer.msg(res.msg, { icon: 5, anim: 6 });
+                } else {
+                    dialoghide();
+                    layer.msg("登录成功！", { icon: 1 });
+                    localStorage.setItem("user", JSON.stringify(res));
+                    isLogin();
+                }
+                $form.data("bootstrapValidator").resetForm();
+                $form[0].reset();
+            });
+        });
+    };
     $(function () {
         getTemplateList();
-        mobileMenuOutsideClick();
-        burgerMenu();
-        scrolledWindow();
         getMoreClassFn();
     });
 })();
