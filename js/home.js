@@ -66,7 +66,7 @@ function getTemplateList(obj) {
             let a = [],
                 b = [];
             for (let i = 0; i <= 1000; i++) {
-                a.push(2 + 5 * i);
+                a.push(2 + 3 * i);
                 b.push(4 + 5 * i);
             }
             res.data.records.forEach((item, index) => {
@@ -81,9 +81,9 @@ function getTemplateList(obj) {
                 </article>
                 `;
                 if (a.includes(index)) {
-                    htmlStr += '<div class="clearfix visible-xs-block"></div>';
+                    htmlStr += '<div class="clearfix visible-sm-block visible-xs-block"></div>';
                 } else if (b.includes(index)) {
-                    htmlStr += `<div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>`;
+                    htmlStr += `<div class="clearfix visible-lg-block visible-md-block  visible-xs-block"></div>`;
                 }
             });
             $(".fh5co-post-entry").eq(0).html(htmlStr);
@@ -139,7 +139,6 @@ function getTemplateList(obj) {
                 item.onclick = function () {
                     config.classParams[item.getAttribute("data-key")] = parseInt(item.getAttribute("data-id"));
                     getTemplateList(config.classParams);
-                    console.log(config.classParams);
                 };
             });
         });
@@ -155,7 +154,9 @@ function getTemplateList(obj) {
         }
         $(".more-class").toggle("fast");
     });
-
+    $(".search_btn").click(function () {
+        getTemplateList({ name: $("#searchInput").val() });
+    });
     function formValidator(form, cb) {
         $(form)
             .bootstrapValidator({
@@ -293,7 +294,7 @@ function getTemplateList(obj) {
                     layer.open({
                         type: 2,
                         area: ["500px", "300px"],
-                        content: res.msg, 
+                        content: res.msg,
                     });
                 }
                 $form.data("bootstrapValidator").resetForm();
@@ -318,6 +319,9 @@ function getTemplateList(obj) {
             $("#layui-nav").addClass("layui-nav-side layui-nav-tree");
         }
     }
+    $(".collection").click(function () {
+        getTemplateList({ collection: true });
+    });
     window.addEventListener("resize", laynav);
     $(function () {
         laynav();

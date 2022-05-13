@@ -2,7 +2,7 @@
  * @Author: xing 1981193009@qq.com
  * @Date: 2022-05-11 14:24:45
  * @LastEditors: xing 1981193009@qq.com
- * @LastEditTime: 2022-05-13 17:38:29
+ * @LastEditTime: 2022-05-13 22:32:16
  * @FilePath: \newdemo - 副本\js\public.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -33,16 +33,15 @@ const service = function (obj) {
                 resolve(msg);
             },
             error: function (a, b, c) {
-                console.log(a, b, c);
-                return;
-                layer.msg(error.msg, { icon: 5, anim: 6, offset: "100px" });
-                reject(error);
+                layer.msg(b, { icon: 5, anim: 6, offset: "100px" });
+                reject(a.statusText);
             },
         });
     });
 };
 // 获取套餐
 const setMealApi = () => service({ url: "/api/order/setMeal", type: "get" });
+const downApi = (data) => service({ url: "/api/static/down", type: "get", data });
 // 创建订单
 const createOrderApi = (data) => service({ url: "/api/order/create", type: "post", data });
 // 获取图片验证码
@@ -266,6 +265,8 @@ function topUp() {
     $(".dialog-title").eq(0).text("充值");
     $("#fh5co-dialog").show();
     $("#topUp-form").show();
+    $("#register-form").hide();
+    $("#login-form").hide();
 }
 
 $(function () {

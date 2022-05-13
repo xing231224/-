@@ -96,13 +96,17 @@
         <div class="detail-btn">
         <a
             href="${res.resource.viewUrl}"
-            tppabs="http://www.layui.com/doc/element/button.html"
             class="layui-btn"
             target="_blank"
             >在线预览</a
         >
-        <button type="button" class="layui-btn">免费下载</button>
-        <button type="button" class="layui-btn">运维支持</button>
+        <button type="button" class="layui-btn download">免费下载</button>
+        <a
+            href="tencent://message/?uin=1352256075&Menu=yes&%20Service=300&sigT=42a1e5347953b64c5ff3980f8a6e644d4b31456cb0b6ac6b27663a3c4dd0f4aa14a543b1716f9d45"
+            class="layui-btn"
+            target="_blank"
+            >运维支持</a
+        >
     </div>
     </div> `;
         $(".detail-table").html(htmlStr);
@@ -119,6 +123,48 @@
                     layer.msg("取消收藏！", { icon: 15 });
                 }
             });
+        });
+        $(".download").click(function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open(
+                "GET",
+                config.url + "/api/static/down?id=" + GetRequest().id + "&token=" + config.loginInfo.token,
+                true
+            );
+            xhr.responseType = "blob";
+            xhr.setRequestHeader("token", config.loginInfo.token); // 请求头中的验证信息等（如果有）
+            xhr.onload = function (res) {
+                if (this.status === 200) {
+                    if (this.response.type.indexOf("application/json") != -1) {
+                        let reader = new FileReader();
+                        reader.addEventListener("loadend", function (e) {
+                            let data = JSON.parse(e.target.result);
+                            if (data.msg.indexOf("http") != -1) {
+                                var a = document.createElement("a");
+                                a.href = data.msg;
+                                a.target = "_blank";
+                                $("body").append(a);
+                                a.click();
+                                $(a).remove();
+                            } else {
+                                $.showAlert({ title: "提示", body: data.msg });
+                            }
+                        });
+                        reader.readAsText(xhr.response);
+                    } else if (this.response.type.indexOf("application/octet-stream") != -1) {
+                        const url = window.URL.createObjectURL(new Blob([this.response]));
+                        var a = document.createElement("a");
+                        a.download = type + ".zip";
+                        a.href = url;
+                        a.target = "_blank";
+                        $("body").append(a);
+                        a.click();
+                        $(a).remove();
+                        URL.revokeObjectURL(url);
+                    }
+                }
+            };
+            xhr.send();
         });
     });
 })();

@@ -56,6 +56,9 @@
   position: relative;
   top: -30px;
 }
+.header .logo a {
+  color: #000 !important;
+}
 .header .more {
   font-size: 18px;
   color: rgba(0, 0, 0, 0.7);
@@ -97,7 +100,6 @@
 .main .more-class .class-title {
   flex: 0 0 60px;
   font-weight: 600;
-  padding-top: 4px;
   font-size: 16px;
 }
 .main .more-class .class-span {
@@ -231,4 +233,9 @@
 .detail-preview .detail-preview-content img {
   width: 100%;
   object-fit: cover;
+}
+@media screen and (min-width: 1200px) {
+  .username {
+    top: 1.2em !important;
+  }
 }

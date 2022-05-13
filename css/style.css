@@ -327,7 +327,7 @@ p {
 @media screen and (max-width: 768px) {
     #fh5co-header .fh5co-social {
         right: 15px !important;
-        top: 1.5em;
+        top: 0.5em;
     }
 }
 @media screen and (max-width: 480px) {
@@ -338,6 +338,10 @@ p {
         left: 50% !important;
         margin-left: -50px; */
         top: 0.2em;
+    }
+    .header-top {
+        padding: 0;
+        padding-bottom: 12px;
     }
 }
 @media screen and (max-width: 768px) {
@@ -351,10 +355,10 @@ p {
         text-align: center !important;
     }
     .detail-btn .layui-btn {
-        margin-bottom:20px;
+        margin-bottom: 20px;
     }
-    .detail-btn .layui-btn:last-child{
-        margin-bottom:0px;
+    .detail-btn .layui-btn:last-child {
+        margin-bottom: 0px;
     }
 }
 #fh5co-header #fh5co-logo {
@@ -362,6 +366,9 @@ p {
 }
 #fh5co-header #fh5co-logo a {
     color: #000;
+}
+.header #fh5co-logo a {
+    color: #000 !important;
 }
 #fh5co-header #fh5co-logo a sup {
     font-size: 20px;
@@ -437,6 +444,7 @@ p {
 }
 
 .fh5co-post-entry.single-entry .fh5co-article-title {
+    font-family: "Roboto", arial, sans-serif;
     font-size: 80px;
 }
 @media screen and (max-width: 992px) {
@@ -488,7 +496,7 @@ p {
     }
     #fh5co-dialog .dialog {
         width: 90vw;
-        min-width:auto;
+        min-width: auto;
     }
 }
 @media screen and (max-width: 768px) {
@@ -522,7 +530,7 @@ p {
 }
 .fh5co-post-entry article h2 {
     font-family: "Playfair Display", times, serif;
-    font-size: 25px;
+    font-size: 22px;
     color: #000;
     margin-bottom: 30px;
 }
@@ -536,8 +544,11 @@ p {
 }
 @media screen and (max-width: 768px) {
     .fh5co-post-entry article h2 {
-        font-size: 24px;
+        font-size: 22px;
         margin-bottom: 20px;
+    }
+    .detail-btn .layui-btn {
+        margin-bottom: 0;
     }
 }
 .fh5co-post-entry article .fh5co-meta {
@@ -834,7 +845,11 @@ figure figcaption {
     -o-transform: rotateZ(-45deg);
     transform: rotateZ(-45deg);
 }
-
+.col-gg-logo {
+    text-align: left !important;
+    position: relative;
+    top: -20px;
+}
 .fh5co-nav-toggle {
     position: absolute;
     top: 18px;
