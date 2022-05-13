@@ -1,3 +1,10 @@
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
 .animate-box {
   opacity: 0;
 }
@@ -8,9 +15,10 @@
   background-color: rgba(0, 0, 0, 0.2);
   left: 0;
   right: 0;
-  z-index: 99999;
+  z-index: 999999;
 }
 #fh5co-dialog .dialog {
+  min-width: 400px;
   min-height: 200px;
   margin: auto;
   background-color: #fff;
@@ -131,4 +139,96 @@
 .layui-nav .layui-nav-item a:hover,
 .layui-nav .layui-this a {
   color: #3db389;
+}
+.header-top {
+  position: fixed;
+  top: 0;
+  background: #fff;
+  z-index: 9999;
+  box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
+  padding: 2em 3em !important;
+}
+.detail-table {
+  width: 100%;
+  background: #f0f2f5;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.detail-table .detail-table-bordered {
+  background-color: #fff;
+  padding: 20px;
+}
+.detail-table .detail-table-bordered .detail-table-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.detail-table .detail-table-bordered .detail-table-header .detail-table-title {
+  overflow: hidden;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5715;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.detail-table .detail-table-bordered .detail-table-header .collectIcon {
+  font-size: 24px;
+  cursor: pointer;
+  margin-left: 28px;
+}
+.detail-table .detail-table-bordered .detail-table-view {
+  border: 1px solid #f0f0f0;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.detail-table .detail-table-bordered .detail-table-view table {
+  table-layout: auto;
+  width: 100%;
+  text-align: left;
+}
+.detail-table .detail-table-bordered .detail-table-view .detail-table-row {
+  border-bottom: 1px solid #f0f0f0;
+}
+.detail-table .detail-table-bordered .detail-table-view .detail-table-row:last-child {
+  border-bottom: none;
+}
+.detail-table .detail-table-bordered .detail-table-view .detail-table-row .detail-table-item-label {
+  width: 200px;
+  background-color: #fafafa;
+  padding: 16px 24px;
+  border-right: 1px solid #f0f0f0;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5715;
+  text-align: start;
+}
+.detail-table .detail-table-bordered .detail-table-view .detail-table-row .detail-table-item-content {
+  padding: 16px 24px;
+}
+.detail-table .detail-table-bordered .detail-table-view .detail-table-row .detail-table-item-content span span:hover {
+  text-decoration: underline;
+}
+.detail-table .detail-btn {
+  text-align: left;
+  margin-top: 20px;
+}
+.detail-preview {
+  width: 100%;
+  background: #f0f2f5;
+  padding: 20px;
+  text-align: left;
+}
+.detail-preview .detail-preview-content {
+  padding: 20px;
+  background-color: #fff;
+}
+.detail-preview .detail-preview-content h2 {
+  margin: 0 0 20px;
+}
+.detail-preview .detail-preview-content img {
+  width: 100%;
+  object-fit: cover;
 }

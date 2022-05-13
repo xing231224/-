@@ -251,6 +251,7 @@ p {
 #fh5co-header {
     padding: 3em 3em;
     float: left;
+    transition: all 0.2s;
     width: 100%;
 }
 @media screen and (max-width: 1200px) {
@@ -285,6 +286,9 @@ p {
         position: static !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
+    }
+    .detail-table-item-label {
+        width: 110px !important;
     }
 }
 #fh5co-header .fh5co-nav-toggle {
@@ -342,6 +346,15 @@ p {
         padding-bottom: 1.5em;
         padding-left: 15px;
         padding-right: 15px;
+    }
+    .detail-btn {
+        text-align: center !important;
+    }
+    .detail-btn .layui-btn {
+        margin-bottom:20px;
+    }
+    .detail-btn .layui-btn:last-child{
+        margin-bottom:0px;
     }
 }
 #fh5co-header #fh5co-logo {
@@ -470,8 +483,12 @@ p {
         margin-right: 3em !important;
         left: 3.5% !important;
     }
+    .fh5co-post-entry .detail-article {
+        left: 0 !important;
+    }
     #fh5co-dialog .dialog {
         width: 90vw;
+        min-width:auto;
     }
 }
 @media screen and (max-width: 768px) {

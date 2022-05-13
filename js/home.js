@@ -206,6 +206,20 @@ function getTemplateList(obj) {
                             },
                         },
                     },
+                    setMealId: {
+                        validators: {
+                            notEmpty: {
+                                message: "请选择套餐！！！",
+                            },
+                        },
+                    },
+                    payType: {
+                        validators: {
+                            notEmpty: {
+                                message: "请选择支付方式！！！",
+                            },
+                        },
+                    },
                 },
             })
             .on("success.form.bv", function (e) {
@@ -228,7 +242,7 @@ function getTemplateList(obj) {
     }
 
     // Document on load.
-    window.onload = function () {
+    $(document).ready(function () {
         layui.use("element", function () {
             var element = layui.element;
             element.on("nav(headerNav)", function (data) {
@@ -272,7 +286,28 @@ function getTemplateList(obj) {
                 $form[0].reset();
             });
         });
-    };
+        // 充值验证
+        formValidator("#topUp-form", function (params, $form) {
+            createOrderApi(params).then((res) => {
+                if (res.code == 0) {
+                    layer.open({
+                        type: 2,
+                        area: ["500px", "300px"],
+                        content: res.msg, 
+                    });
+                }
+                $form.data("bootstrapValidator").resetForm();
+                $form[0].reset();
+            });
+        });
+        setMealApi().then((res) => {
+            $("#meal-select").html(
+                `<option value="">-- 未选择套餐 --</option>${res.data
+                    .map((item) => `<option value='${item.id}'>${item.remark}</option>`)
+                    .join(" ")}`
+            );
+        });
+    });
     function laynav() {
         if ($("body").width() > 1200) {
             $("#layui-nav").css("display", "block");
@@ -283,9 +318,9 @@ function getTemplateList(obj) {
             $("#layui-nav").addClass("layui-nav-side layui-nav-tree");
         }
     }
-    window.addEventListener("resize",laynav);
+    window.addEventListener("resize", laynav);
     $(function () {
-        laynav()
+        laynav();
         getTemplateList();
         getMoreClassFn();
     });

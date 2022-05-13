@@ -37,6 +37,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <link rel="stylesheet" href="layui/css/layui.css" />
         <link rel="stylesheet" href="./css/bootstrapValidator.min.css" />
+        <script src="./fonts/iconfont.js"></script>
         <link rel="stylesheet" href="/css/index.css" />
         <!-- Animate -->
         <link rel="stylesheet" href="css/animate.css" />
@@ -58,21 +59,12 @@
         <script src="public/bootstrap.min.js"></script>
         <!-- Waypoints -->
         <script src="public/jquery.waypoints.min.js"></script>
-        <script src="./fonts/iconfont.js"></script>
-        <script src="./js/bootstrapValidator.min.js"></script>
+
+        <script src="public/bootstrapValidator.min.js"></script>
         <!-- FOR IE9 below -->
         <!--[if lt IE 9]>
             <script src="js/respond.min.js"></script>
         <![endif]-->
-        <style>
-            .icon {
-                width: 1em;
-                height: 1em;
-                vertical-align: -0.15em;
-                fill: currentColor;
-                overflow: hidden;
-            }
-        </style>
     </head>
     <body>
         <div id="fh5co-dialog" class="juz" style="display: none">
@@ -84,7 +76,7 @@
                     ></span>
                 </div>
                 <div class="dialog-body">
-                    <form role="form" id="register-form" method="post" style="display: none">
+                    <form  id="register-form" method="post" style="display: none">
                         <div class="form-group">
                             <label for="email">QQ邮箱</label>
                             <div class="input-group">
@@ -173,7 +165,7 @@
                             />
                         </div>
                     </form>
-                    <form role="form" id="login-form" method="post" style="display: none">
+                    <form  id="login-form" method="post" style="display: none">
                         <div class="form-group">
                             <label for="email">QQ邮箱</label>
                             <div class="input-group">
@@ -204,6 +196,41 @@
                         </div>
                         <div class="form-group">
                             <input style="width: 100%; margin-top: 20px" class="layui-btn" value="登录" type="submit" />
+                        </div>
+                    </form>
+                    <form id="topUp-form" method="post" style="display: none">
+                        <div class="form-group">
+                            <label for="setMealId">套餐选择</label>
+                            <div class="input-group" style="width: 100%">
+                                <select class="form-control" name="setMealId" id="meal-select"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="payType">支付方式</label>
+                            <div class="input-group">
+                                <label class="radio-inline">
+                                    <input type="radio" name="payType" value="2" />
+                                    <span style="font-size: 60px"
+                                        ><svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-zhifubao"></use>
+                                        </svg>
+                                    </span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="payType" value="1" />
+                                    <span style="font-size: 60px"
+                                        ><svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-weixin"></use>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="text-align: right">
+                            <button type="button" class="layui-btn layui-btn-primary" onclick="dialoghide(event)">
+                                关闭
+                            </button>
+                            <input class="layui-btn" value="确定" type="submit" />
                         </div>
                     </form>
                 </div>
@@ -238,7 +265,7 @@
                             </h1>
                         </div>
                         <ul
-                            class="layui-nav layui-nav-side layui-nav-tree"
+                            class="layui-nav"
                             id="layui-nav"
                             style="background-color: #fff; display: none"
                             lay-filter="headerNav"
@@ -342,6 +369,6 @@
             };
         </script>
         <script src="js/public.js"></script>
-        <script src="./js/main.js"></script>
+        <script src="js/home.js"></script>
     </body>
 </html>
