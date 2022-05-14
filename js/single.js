@@ -1,20 +1,4 @@
 (function () {
-    const GetRequest = () => {
-        var url = location.search; //获取url中"?"符后的字串
-
-        var theRequest = new Object();
-
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
-
-            strs = str.split("&");
-
-            for (var i = 0; i < strs.length; i++) {
-                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-            }
-        }
-        return theRequest;
-    };
     getDetail({ id: GetRequest().id }).then((res) => {
         let htmlStr = `
         <div class="detail-table-bordered">
@@ -46,7 +30,7 @@
                             <span>
                                 ${res.classification
                                     .map((item) => {
-                                        return `<span style="margin-right: 5px; cursor: pointer">${item.name}</span>`;
+                                        return `<span class='detail-class-span'><a href="index.html?id=${item.id}&key=classificationId">${item.name}</a></span>`;
                                     })
                                     .join(" ")}
                             </span>
@@ -60,7 +44,7 @@
                             <span>
                                 ${res.color
                                     .map((item) => {
-                                        return `<span style="margin-right: 5px; cursor: pointer">${item.name}</span>`;
+                                        return `<span class='detail-class-span'><a href="index.html?id=${item.id}&key=colorId">${item.name}</a></span>`;
                                     })
                                     .join(" ")}
                             </span>
@@ -74,7 +58,7 @@
                         <span>
                              ${res.tag
                                  .map((item) => {
-                                     return `<span style="margin-right: 5px; cursor: pointer">${item.name}</span>`;
+                                     return `<span class='detail-class-span'><a href="index.html?id=${item.id}&key=tagId">${item.name}</a></span>`;
                                  })
                                  .join(" ")}
                          </span>
@@ -125,6 +109,11 @@
             });
         });
         $(".download").click(function () {
+            // downApi({id:GetRequest().id}).then(res=>{
+            //     console.log(res);
+            // })
+
+            // return
             var xhr = new XMLHttpRequest();
             xhr.open(
                 "GET",
@@ -134,6 +123,7 @@
             xhr.responseType = "blob";
             xhr.setRequestHeader("token", config.loginInfo.token); // 请求头中的验证信息等（如果有）
             xhr.onload = function (res) {
+                console.log(res, this);
                 if (this.status === 200) {
                     if (this.response.type.indexOf("application/json") != -1) {
                         let reader = new FileReader();

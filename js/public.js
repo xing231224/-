@@ -2,7 +2,7 @@
  * @Author: xing 1981193009@qq.com
  * @Date: 2022-05-11 14:24:45
  * @LastEditors: xing 1981193009@qq.com
- * @LastEditTime: 2022-05-13 22:32:16
+ * @LastEditTime: 2022-05-14 11:35:12
  * @FilePath: \newdemo - 副本\js\public.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -30,6 +30,11 @@ const service = function (obj) {
             headers: { token: config.loginInfo.token ? config.loginInfo.token : "" },
             contentType: "application/json;charset=UTF-8",
             success: function (msg) {
+                if (msg.msg === "token失效，请重新登录") {
+                    layer.msg(msg.msg, { icon: 5, anim: 6 });
+                    localStorage.removeItem("user");
+                    isLogin();
+                }
                 resolve(msg);
             },
             error: function (a, b, c) {
@@ -39,8 +44,23 @@ const service = function (obj) {
         });
     });
 };
+const GetRequest = () => {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+};
+// 获取用户信息
+const userInfoApi = () => service({ url: "/api/userInfo", type: "get" });
 // 获取套餐
 const setMealApi = () => service({ url: "/api/order/setMeal", type: "get" });
+// 下载模板
 const downApi = (data) => service({ url: "/api/static/down", type: "get", data });
 // 创建订单
 const createOrderApi = (data) => service({ url: "/api/order/create", type: "post", data });
@@ -111,11 +131,11 @@ var mobileMenuOutsideClick = function () {
             container.has(e.target).length === 0 &&
             $("#fh5co-dialog").css("display") == "none"
         ) {
-            if ($("#fh5co-offcanvas").hasClass("animated fadeInLeft")) {
-                $("#fh5co-offcanvas").addClass("animated fadeOutLeft");
+            if ($("#fh5co-offcanvas").hasClass("animated fadeInRight")) {
+                $("#fh5co-offcanvas").addClass("animated fadeOutRight");
                 setTimeout(function () {
                     $("#fh5co-offcanvas").css("display", "none");
-                    $("#fh5co-offcanvas").removeClass("animated fadeOutLeft fadeInLeft");
+                    $("#fh5co-offcanvas").removeClass("animated fadeOutRight fadeInRight");
                 }, 1000);
                 $(".js-fh5co-nav-toggle").removeClass("active");
             }
@@ -135,10 +155,10 @@ var mobileMenuOutsideClick = function () {
     });
 
     $("body").on("click", ".js-fh5co-close-offcanvas", function (event) {
-        $("#fh5co-offcanvas").addClass("animated fadeOutLeft");
+        $("#fh5co-offcanvas").addClass("animated fadeOutRight");
         setTimeout(function () {
             $("#fh5co-offcanvas").css("display", "none");
-            $("#fh5co-offcanvas").removeClass("animated fadeOutLeft fadeInLeft");
+            $("#fh5co-offcanvas").removeClass("animated fadeOutRight fadeInRight");
         }, 1000);
         $(".js-fh5co-nav-toggle").removeClass("active");
 
@@ -159,7 +179,7 @@ var burgerMenu = function () {
         var $this = $(this);
         $("#fh5co-offcanvas").css("display", "block");
         setTimeout(function () {
-            $("#fh5co-offcanvas").addClass("animated fadeInLeft");
+            $("#fh5co-offcanvas").addClass("animated fadeInRight");
         }, 100);
 
         // $('body').toggleClass('fh5co-overflow offcanvas-visible');
@@ -227,7 +247,11 @@ function isLogin() {
         const info = JSON.parse(localStorage.getItem("user")).userInfo;
         $(".login-btn").hide();
         $(".collection").show();
-        $(".username").show().text(info.username);
+        $(".username").show().html(`
+        <img src="${info.qqImg}" class="layui-nav-img" />
+        <span>${info.username}</span>
+        <i class="layui-icon layui-icon-down layui-nav-more"></i>
+        `);
         $("#fh5co-offcanvas").html(`
         <a href="#" class="fh5co-close-offcanvas js-fh5co-close-offcanvas"><span><i class="icon-cross3"></i> <span>Close</span></span></a>
             <div class="fh5co-bio" style="width: 100%">
@@ -241,7 +265,7 @@ function isLogin() {
                 </figure>
                 <h3 class="heading">${info.username}</h3>
                 <p>剩余下载次数：${info.downTimes}</p>
-                <h2 style='margin-bottom:20px;'>会员有效期至:${info.openTime}</h2>
+                <h2 style='margin-bottom:20px;    font-size: 20px;'>会员有效期至:${info.openTime}</h2>
                 <div style='margin-bottom:20px;'><button type="button" class="layui-btn layui-btn-sm layui-btn-primary" onclick='topUp()'>充值</button></div>
                 <div><button type="button" class="layui-btn layui-btn-primary" onclick='loginOut()'>退出登录</button></div>
             </div>

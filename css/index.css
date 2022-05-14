@@ -118,6 +118,7 @@
   cursor: pointer;
 }
 .username {
+  cursor: pointer;
   padding: 0 10px !important;
 }
 #laypage {
@@ -148,7 +149,7 @@
   background: #fff;
   z-index: 9999;
   box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
-  padding: 2em 3em !important;
+  padding: 2em 3em ;
 }
 .detail-table {
   width: 100%;
@@ -233,6 +234,23 @@
 .detail-preview .detail-preview-content img {
   width: 100%;
   object-fit: cover;
+}
+.list-empty-image svg {
+  height: 100%;
+  margin: auto;
+}
+.list-empty-image {
+  height: 400px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.list-empty-description {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+.lazyImgWrap {
+  margin-bottom: 20px;
 }
 @media screen and (min-width: 1200px) {
   .username {
