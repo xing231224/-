@@ -2,11 +2,20 @@
  * @Author: xing 1981193009@qq.com
  * @Date: 2022-05-11 14:24:45
  * @LastEditors: xing 1981193009@qq.com
- * @LastEditTime: 2022-05-14 11:35:12
+ * @LastEditTime: 2022-05-15 20:43:03
  * @FilePath: \newdemo - 副本\js\public.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-const config = {
+
+import "../css/animate.css";
+import "../css/bootstrap.css";
+import "../css/bootstrapValidator.min.css";
+import "../css/icomoon.css";
+import "../css/index.css";
+import "../css/style.css";
+require("../fonts/iconfont");
+
+window.config = {
     url: "http://svip.aeert.com:18081",
     more: ["classification", "color", "tag"],
     classification: [],
@@ -21,7 +30,7 @@ const config = {
     loginInfo: {},
 };
 
-const service = function (obj) {
+window.service = function (obj) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: config.url + obj.url,
@@ -35,6 +44,9 @@ const service = function (obj) {
                     localStorage.removeItem("user");
                     isLogin();
                 }
+                if(msg.code == 500){
+                    layer.msg(msg.msg, { icon: 5, anim: 6 });
+                }
                 resolve(msg);
             },
             error: function (a, b, c) {
@@ -44,12 +56,12 @@ const service = function (obj) {
         });
     });
 };
-const GetRequest = () => {
+window.GetRequest = () => {
     var url = location.search; //获取url中"?"符后的字串
     var theRequest = new Object();
     if (url.indexOf("?") != -1) {
         var str = url.substr(1);
-        strs = str.split("&");
+        var strs = str.split("&");
         for (var i = 0; i < strs.length; i++) {
             theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
@@ -57,36 +69,36 @@ const GetRequest = () => {
     return theRequest;
 };
 // 获取用户信息
-const userInfoApi = () => service({ url: "/api/userInfo", type: "get" });
+window.userInfoApi = () => service({ url: "/api/userInfo", type: "get" });
 // 获取套餐
-const setMealApi = () => service({ url: "/api/order/setMeal", type: "get" });
+window.setMealApi = () => service({ url: "/api/order/setMeal", type: "get" });
 // 下载模板
-const downApi = (data) => service({ url: "/api/static/down", type: "get", data });
+window.downApi = (data) => service({ url: "/api/static/down", type: "get", data });
 // 创建订单
-const createOrderApi = (data) => service({ url: "/api/order/create", type: "post", data });
+window.createOrderApi = (data) => service({ url: "/api/order/create", type: "post", data });
 // 获取图片验证码
-const captchaApi = () => service({ url: "/api/captcha.jpg", type: "get" });
+window.captchaApi = () => service({ url: "/api/captcha.jpg", type: "get" });
 // 登录
-const loginApi = (data) => service({ url: "/api/login", type: "post", data });
+window.loginApi = (data) => service({ url: "/api/login", type: "post", data });
 // 退出
-const logoutApi = () => service({ url: "/api/logout", type: "post" });
+window.logoutApi = () => service({ url: "/api/logout", type: "post" });
 // 注册
-const registerApi = (data) => service({ url: "/api/register", type: "post", data });
+window.registerApi = (data) => service({ url: "/api/register", type: "post", data });
 // 发送邮件
-const sendMailApi = (data) => service({ url: "/api/sendMail", type: "get", data });
+window.sendMailApi = (data) => service({ url: "/api/sendMail", type: "get", data });
 
 // 获取更多分类条件搜索
-const getMoreClass = () => service({ url: "/api/static/base", type: "get" });
+window.getMoreClass = () => service({ url: "/api/static/base", type: "get" });
 // 收藏
-const collection = (data) => service({ url: "/api/static/collection", type: "get", data });
+window.collection = (data) => service({ url: "/api/static/collection", type: "get", data });
 // 获取模板详情
-const getDetail = (data) => service({ url: "/api/static/detail", type: "get", data });
+window.getDetail = (data) => service({ url: "/api/static/detail", type: "get", data });
 // 下载模板
-const downTemplate = () => service({ url: "/api/static/down", type: "get" });
+window.downTemplate = () => service({ url: "/api/static/down", type: "get" });
 // 获取模板列表
-const templatePage = (data) => service({ url: "/api/static/page", type: "post", data });
+window.templatePage = (data) => service({ url: "/api/static/page", type: "post", data });
 
-var contentWayPoint = function () {
+window.contentWayPoint = function () {
     var i = 0;
     $(".animate-box").waypoint(
         function (direction) {
@@ -123,7 +135,7 @@ var isiPhone = function () {
 };
 
 // Click outside of offcanvass
-var mobileMenuOutsideClick = function () {
+window.mobileMenuOutsideClick = function () {
     $(document).click(function (e) {
         var container = $("#fh5co-offcanvas, .js-fh5co-close-offcanvas");
         if (
@@ -174,7 +186,7 @@ var mobileMenuOutsideClick = function () {
 };
 
 // Burger Menu
-var burgerMenu = function () {
+window.burgerMenu = function () {
     $("body").on("click", ".js-fh5co-nav-toggle", function (event) {
         var $this = $(this);
         $("#fh5co-offcanvas").css("display", "block");
@@ -188,7 +200,7 @@ var burgerMenu = function () {
     });
 };
 
-var scrolledWindow = function () {
+window.scrolledWindow = function () {
     $(window).scroll(function () {
         var header = $("#fh5co-header"),
             scrlTop = $(this).scrollTop();
@@ -215,7 +227,7 @@ var scrolledWindow = function () {
 };
 
 // Page Nav
-var clickMenu = function () {
+window.clickMenu = function () {
     var topVal = $(window).width() < 769 ? 0 : 58;
 
     $(window).resize(function () {
@@ -240,7 +252,7 @@ var clickMenu = function () {
         });
     }
 };
-function isLogin() {
+window.isLogin = function () {
     if (localStorage.getItem("user")) {
         config.isLogin = true;
         config.loginInfo = JSON.parse(localStorage.getItem("user"));
@@ -264,10 +276,18 @@ function isLogin() {
                     />
                 </figure>
                 <h3 class="heading">${info.username}</h3>
-                <p>剩余下载次数：${info.downTimes}</p>
-                <h2 style='margin-bottom:20px;    font-size: 20px;'>会员有效期至:${info.openTime}</h2>
-                <div style='margin-bottom:20px;'><button type="button" class="layui-btn layui-btn-sm layui-btn-primary" onclick='topUp()'>充值</button></div>
-                <div><button type="button" class="layui-btn layui-btn-primary" onclick='loginOut()'>退出登录</button></div>
+                <div style='margin-bottom: 20px;'> 
+                <span>剩余下载次数：${info.downTimes}</span>
+                <button type="button" style='margin-left: 20px;' class="layui-btn layui-btn-sm layui-btn-primary" onclick='topUp()'>充值</button>
+                </div>
+                
+                <p style='margin-bottom:20px;font-size: 20px;'>会员有效期至:${info.openTime}</p>
+                <ul class="fh5co-social">
+				<li><a href="#"><i class="icon-twitter"></i></a></li>
+				<li><a href="#"><i class="icon-facebook"></i></a></li>
+				<li><a href="#"><i class="icon-instagram"></i></a></li>
+			    </ul>
+                <div class='loginOut'><button type="button" class="layui-btn layui-btn-primary" onclick='loginOut()'>退出登录</button></div>
             </div>
         `);
     } else {
@@ -277,21 +297,21 @@ function isLogin() {
         $(".collection").hide();
         $(".js-fh5co-close-offcanvas").click();
     }
-}
-function loginOut() {
+};
+window.loginOut = function () {
     logoutApi({ token: config.loginInfo.token }).then((res) => {
         localStorage.removeItem("user");
         isLogin();
     });
-}
-function topUp() {
+};
+window.topUp = function () {
     $("body").attr("style", "overflow:hidden");
     $(".dialog-title").eq(0).text("充值");
     $("#fh5co-dialog").show();
     $("#topUp-form").show();
     $("#register-form").hide();
     $("#login-form").hide();
-}
+};
 
 $(function () {
     mobileMenuOutsideClick();

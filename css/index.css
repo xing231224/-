@@ -149,7 +149,7 @@
   background: #fff;
   z-index: 9999;
   box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
-  padding: 2em 3em ;
+  padding: 2em 3em;
 }
 .detail-table {
   width: 100%;
@@ -252,8 +252,22 @@
 .lazyImgWrap {
   margin-bottom: 20px;
 }
+.fh5co-social {
+  margin-bottom: 20px;
+}
+.unlimited-class {
+  margin: 0;
+  display: inline;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
 @media screen and (min-width: 1200px) {
   .username {
     top: 1.2em !important;
+  }
+  .loginOut {
+    text-align: right;
+    padding: 0 20px;
   }
 }

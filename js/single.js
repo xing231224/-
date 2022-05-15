@@ -109,11 +109,6 @@
             });
         });
         $(".download").click(function () {
-            // downApi({id:GetRequest().id}).then(res=>{
-            //     console.log(res);
-            // })
-
-            // return
             var xhr = new XMLHttpRequest();
             xhr.open(
                 "GET",
@@ -137,7 +132,7 @@
                                 a.click();
                                 $(a).remove();
                             } else {
-                                $.showAlert({ title: "提示", body: data.msg });
+                                layer.msg( data.msg, { icon: 5 });
                             }
                         });
                         reader.readAsText(xhr.response);

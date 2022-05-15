@@ -1,13 +1,13 @@
-function getpicSms() {
+window.getpicSms = function () {
     $(".captchaPic").attr("src", config.url + "/api/captcha.jpg");
-}
+};
 
 let validate = function (dom, fields) {
     $(dom).data("bootstrapValidator").resetField(fields);
     const is = $(dom).data("bootstrapValidator").validateField(fields).isValidField(fields);
     return is;
 };
-function getUserInfo() {
+window.getUserInfo = function () {
     userInfoApi().then((res) => {
         if (res.code == 0) {
             let obj = JSON.parse(localStorage.getItem("user"));
@@ -16,8 +16,8 @@ function getUserInfo() {
             localStorage.setItem("user", JSON.stringify(obj));
         }
     });
-}
-function getSms(e) {
+};
+window.getSms = function (e) {
     if (!validate("#register-form", "email")) return;
     if (!validate("#register-form", "captcha")) return;
     let params = {};
@@ -56,7 +56,7 @@ function getSms(e) {
             getpicSms();
         }
     });
-}
+};
 // 获取模板列表
 function getTemplateList(obj) {
     let params = {
@@ -85,9 +85,7 @@ function getTemplateList(obj) {
                     <figure class='figure'>
                         <a href="single.html?id=${item.id}"><img src="${item.img}" alt="Image" class="img-responsive"></a>
                     </figure>
-                    <span class="fh5co-meta"><a href="single.html?id=${item.id}">Food &amp; Drink</a></span>
                     <h2 class="fh5co-article-title"><a href="single.html?id=${item.id}">${item.name}</a></h2>
-                    <span class="fh5co-meta fh5co-date">March 6th, 2016</span>
                 </article>
                 `;
                     if (a.includes(index)) {
@@ -1833,7 +1831,7 @@ function getTemplateList(obj) {
 (function () {
     "use strict";
     // 获取更多分类
-    function getMoreClassFn() {
+    function getMoreClassFn(cb) {
         getMoreClass().then((res) => {
             let htmlStr = "";
             config.more.forEach((key) => {
@@ -1843,6 +1841,7 @@ function getTemplateList(obj) {
 					<div class="flex">
 					<span class='class-title'>${key == "classification" ? "分类" : key == "color" ? "颜色" : "Tag"}&nbsp;: </span>
 					<div style='text-align: justify;' class='${key}'>
+                        <p class='unlimited-class' data-key='${key}Id' >不限</p>
 						${res[key]
                             .map((item) => {
                                 config.classificationId =
@@ -1859,15 +1858,30 @@ function getTemplateList(obj) {
             $(".class-span").each(function (index, item) {
                 item.onclick = function () {
                     $(".class-span").each(function (i, row) {
+                        if (item.getAttribute("data-key") == "classificationId") {
+                            $(".layui-nav-item").removeClass("layui-this");
+                        }
                         if (item.getAttribute("data-key") == row.getAttribute("data-key")) {
                             row.style.color = "";
                         }
                     });
-                    item.style.color = "red";
+                    item.style.color = "#3db389";
                     config.classParams[item.getAttribute("data-key")] = parseInt(item.getAttribute("data-id"));
                     getTemplateList(config.classParams);
                 };
             });
+            $(".unlimited-class").each(function (index, item) {
+                item.onclick = function () {
+                    $(".class-span").each(function (i, row) {
+                        if (item.getAttribute("data-key") == row.getAttribute("data-key")) {
+                            row.style.color = "";
+                        }
+                    });
+                    config.classParams[item.getAttribute("data-key")] = null;
+                    getTemplateList(config.classParams);
+                };
+            });
+            cb && cb();
         });
     }
 
@@ -1882,7 +1896,8 @@ function getTemplateList(obj) {
         $(".more-class").toggle("fast");
     });
     $(".search_btn").click(function () {
-        getTemplateList({ name: $("#searchInput").val() });
+        config.classParams.name = $("#searchInput").val();
+        getTemplateList(config.classParams);
     });
     function formValidator(form, cb) {
         const feedbackIcons = {
@@ -1976,6 +1991,9 @@ function getTemplateList(obj) {
             var element = layui.element;
             element.on("nav(headerNav)", function (data) {
                 setTimeout(() => {
+                    $(".classification .class-span").each((inde,item)=>{
+                        item.style.color=""
+                    })
                     const classificationId = config.classification.filter((item) => item.name == data[0].innerText)[0]
                         .id;
                     config.classParams.classificationId = classificationId;
@@ -2021,8 +2039,11 @@ function getTemplateList(obj) {
                 if (res.code == 0) {
                     layer.open({
                         type: 2,
-                        area: ["80vw", "80vh"],
+                        area: [`${$("body").width() > 1200 ? "700px" : "80vw"}`, "80vh"],
                         content: res.msg,
+                        end: function () {
+                            getUserInfo();
+                        },
                     });
                 }
                 $form.data("bootstrapValidator").resetForm();
@@ -2048,17 +2069,43 @@ function getTemplateList(obj) {
         }
     }
     $(".collection").click(function () {
-        getTemplateList({ collection: true });
+        config.classParams.collection = !config.classParams.collection;
+        if (config.classParams.collection) {
+            this.style.color = "#3db389";
+        } else {
+            this.style.color = "#333";
+        }
+        config.classParams.userId = config.loginInfo.userInfo.userId;
+        getTemplateList(config.classParams);
     });
     window.addEventListener("resize", laynav);
     $(function () {
         laynav();
-        if (GetRequest().id) {
-            getTemplateList({ [GetRequest().key]: GetRequest().id });
-        } else {
-            getTemplateList();
-        }
-        getMoreClassFn();
+        getMoreClassFn(function () {
+            if (GetRequest().id) {
+                if (GetRequest().key == "classificationId") {
+                    $(".layui-nav-item").each(function (index, item) {
+                        if (item.innerText == config.classification.find((row) => row.id == GetRequest().id).name) {
+                            $(".layui-nav-item").removeClass("layui-this");
+                            $(item).addClass("layui-this");
+                        } else {
+                            $(".layui-nav-item").removeClass("layui-this");
+                        }
+                    });
+                }
+                const dom = GetRequest().key.substring(GetRequest().key.length - 2, 0);
+                $(`.${dom} .class-span`).each(function (index, item) {
+                    if (GetRequest().id == item.getAttribute("data-id")) {
+                        $(".class-span").css("color", "");
+                        item.style.color = "#3db389";
+                    }
+                });
+
+                getTemplateList({ [GetRequest().key]: GetRequest().id });
+            } else {
+                getTemplateList();
+            }
+        });
         getUserInfo();
     });
 })();
